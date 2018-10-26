@@ -1,0 +1,7 @@
+# 10/26
+1. 메인페이지 
+(C)IndexController.doGet -> (V)index.jsp
+2. 회원가입 폼
+(C)AddMemberController.doGet -> (V)addMember.jsp
+3. 회원가입 액션
+(C)AddMemberController.doPost -> (M)MemberDao.insertMember -> re:(V)login
