@@ -1,7 +1,13 @@
 # 10/26
-1. ë©”ì¸íŽ˜ì´ì§€ 
+1. ¸ÞÀÎÆäÀÌÁö 
 (C)IndexController.doGet -> (V)index.jsp
-2. íšŒì›ê°€ìž… í¼
+2. È¸¿ø°¡ÀÔ Æû
 (C)AddMemberController.doGet -> (V)addMember.jsp
-3. íšŒì›ê°€ìž… ì•¡ì…˜
+3. È¸¿ø°¡ÀÔ ¾×¼Ç
 (C)AddMemberController.doPost -> (M)MemberDao.insertMember -> re:(V)login
+
+# 10-28
+4. ·Î±×ÀÎ Æû
+(C)Login.doGet -> (V)login.jsp
+5. ·Î±×ÀÎ ¾×¼Ç
+(C)Login.doGet -> (M)MemberDao.login() -> success:(V)index / fail:(V)login
