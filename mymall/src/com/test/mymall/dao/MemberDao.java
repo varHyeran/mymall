@@ -10,13 +10,13 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Member;
 
 public class MemberDao {
-	// íšŒì›íƒˆí‡´
+	// È¸¿øÅ»Åð
 	public void deleteMember(int no) {
 		
 	}
 	
-	// ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œ -> null
-	// ë¡œê·¸ì¸ ì„±ê³µì‹œ -> ì„±ê³µí•œ Memberê°ì²´
+	// ·Î±×ÀÎ ½ÇÆÐ½Ã -> null
+	// ·Î±×ÀÎ ¼º°ø½Ã -> ¼º°øÇÑ Member°´Ã¼
 	public Member loginMember(Member member) throws Exception {
 		System.out.println("MemberDao.loginMember(Member member)");
 		DBHelper dbHelper = new DBHelper();
@@ -28,11 +28,12 @@ public class MemberDao {
 		String pw = member.getPw();
 		
 		conn = dbHelper.getConnection();
-		String sql = "SELECT id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
+		String sql = "SELECT no, id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
 		stmt = conn.prepareStatement(sql);
 		System.out.println(sql + "<-- loginMember sql");
 		rs = stmt.executeQuery();
 		if(rs.next()) {
+			member.setNo(rs.getInt("no"));
 			member.setId(rs.getString("id"));
 			member.setLevel(rs.getInt("level"));
 		}
@@ -40,7 +41,7 @@ public class MemberDao {
 		return member;
 	}
 	
-	// íšŒì›ê°€ìž…
+	// È¸¿ø°¡ÀÔ
 	public void insertMember(Member member) throws Exception {
 		System.out.println("MemberDao.insertMember(Member member)");
 		DBHelper dbHelper = new DBHelper();

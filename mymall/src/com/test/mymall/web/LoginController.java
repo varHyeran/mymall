@@ -14,17 +14,17 @@ import com.test.mymall.vo.Member;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private MemberDao memberDao;
-	// ë¡œê·¸ì¸ í¼
+	// ·Î±×ÀÎ Æû
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LoginController.doGet()");
 		if(request.getSession().getAttribute("loginMember") == null) {
 			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 		} else {
-			System.out.println("ë¡œê·¸ì¸ ì¤‘ì…ë‹ˆë‹¤...");
+			System.out.println("·Î±×ÀÎ ÁßÀÔ´Ï´Ù...");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 	}
-	// ë¡œê·¸ì¸ ì•¡ì…˜
+	// ·Î±×ÀÎ ¾×¼Ç
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. id, password 
 		System.out.println("LoginController.doPost()");
@@ -45,10 +45,10 @@ public class LoginController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", sessionMember);
 				response.sendRedirect(request.getContextPath() + "/index");
-				System.out.println("ë¡œê·¸ì¸ ì„±ê³µ");
+				System.out.println("·Î±×ÀÎ ¼º°ø");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/login");
-				System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+				System.out.println("·Î±×ÀÎ ½ÇÆĞ");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

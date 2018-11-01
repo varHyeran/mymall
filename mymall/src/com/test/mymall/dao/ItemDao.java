@@ -10,7 +10,7 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Item;
 
 public class ItemDao {
-	// ìƒí’ˆë¦¬ìŠ¤íŠ¸ ì „ì²´ì¡°íšŒ
+	// »óÇ°¸®½ºÆ® ÀüÃ¼Á¶È¸
 	public ArrayList<Item> selectItem(Connection conn) throws SQLException {
 		System.out.println("ItemDao.selectItem()");
 		PreparedStatement stmt = null;

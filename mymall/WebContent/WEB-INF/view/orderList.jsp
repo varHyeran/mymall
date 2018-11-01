@@ -7,23 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Item List</h1>
+	<h1>orderList</h1>
+	<!-- 주문하기 item pk, session member pk -->
 	<form>
 		<table border="1">
 			<tr>
 				<th>No</th>
-				<th>Name</th>
-				<th>Price</th>
-				<th>Order</th>
+				<th>orderDate</th>
+				<th>itemNo</th>
+				<th>itemName</th>
+				<th>itemPrice</th>
+				
+				
 			</tr>
-				<c:forEach var="list" items="${itemList}">
-					<tr>
-						<td>${list.no}</td>
-						<td>${list.name}</td>	
-						<td>${list.price}</td>
-						<td><a href="${pageContext.request.contextPath}/OrderController?itemNo=${list.no}">주문</a></td>
-					</tr>
-				</c:forEach>
 		</table>
 	</form>
 </body>

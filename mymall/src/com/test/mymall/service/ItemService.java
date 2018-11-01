@@ -16,10 +16,10 @@ public class ItemService {
 		ArrayList<Item> itemList = null;
 		try {
 			conn = DBHelper.getConnection();
-			// ê¸°ëŠ¥ 1
+			// ±â´É 1
 			itemDao = new ItemDao();
 			itemList= itemDao.selectItem(conn);
-			System.out.println(itemList + " <- ì„œë¹„ìŠ¤");
+			System.out.println(itemList + " <- ¼­ºñ½º");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

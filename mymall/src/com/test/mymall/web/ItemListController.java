@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.test.mymall.service.ItemService;
 import com.test.mymall.vo.Item;
 
@@ -18,9 +16,9 @@ public class ItemListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ItemListController.doGet()");
 		ItemService itemService = new ItemService();
-		System.out.println(itemService + " <- ì»¨íŠ¸ë¡¤ëŸ¬ ì„œë¹„ìŠ¤ itemList");
+		System.out.println(itemService + " <- ÄÁÆ®·Ñ·¯ ¼­ºñ½º itemList");
 		ArrayList<Item> itemList = itemService.selectItemService();
-		System.out.println(itemList + " <- ì–´ë ˆì´ë¦¬ìŠ¤íŠ¸ itemList");
+		System.out.println(itemList + " <- ¾î·¹ÀÌ¸®½ºÆ® itemList");
 		request.setAttribute("itemList", itemList);
 		request.getRequestDispatcher("/WEB-INF/view/itemList.jsp").forward(request, response);
 	}

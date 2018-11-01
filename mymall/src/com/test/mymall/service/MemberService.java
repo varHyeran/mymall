@@ -12,19 +12,19 @@ public class MemberService {
 	private MemberDao memberDao;
 	private MemberItemDao memberItemDao;
 	
-	// RemoveMemberControllerì—ì„œ MemberService.remoceMember()ë¥¼ í˜¸ì¶œ
+	// RemoveMemberController¿¡¼­ MemberService.remoceMember()¸¦ È£Ãâ
 	public void removeMember(int no) {
 		Connection conn = null;
 		try {
 			conn = DBHelper.getConnection();
-			conn.setAutoCommit(false);	// ìë™ìœ¼ë¡œ commití•˜ì§€ ì•Šê² ë‹¤
-			// 1 function(ê¸°ëŠ¥)
+			conn.setAutoCommit(false);	// ÀÚµ¿À¸·Î commitÇÏÁö ¾Ê°Ú´Ù
+			// 1 function(±â´É)
 			memberDao = new MemberDao();
 			memberDao.deleteMember(conn, no);
 			// 2 function
 			memberItemDao = new MemberItemDao();
 			memberItemDao.deleteMemberItem(conn, no);
-			conn.commit();	// ë¬¶ìŒ ë‹¨ìœ„ë¡œ ì»¤ë°‹ -> í•˜ë‚˜ë¼ë„ ë¬¸ì œê°€ ìƒê¸°ë©´ ë¡¤ë°±
+			conn.commit();	// ¹­À½ ´ÜÀ§·Î Ä¿¹Ô -> ÇÏ³ª¶óµµ ¹®Á¦°¡ »ı±â¸é ·Ñ¹é
 		} catch(Exception e) {
 			try {
 				conn.rollback();
@@ -37,7 +37,7 @@ public class MemberService {
 		}
 	}
 	
-	public void addMember(Member member) throws Exception {	// ìŒ¤ì´ë‘ ë‹¤ë¥¸ì‚¬ëŒë“¤ì€ throwsì—†ì´ ë˜ëŠ”ë° ë‚˜ëŠ” ì—†ìœ¼ë©´ ì˜¤ë¥˜ëœ¸ ã… ã… 
+	public void addMember(Member member) throws Exception {	// ½ÜÀÌ¶û ´Ù¸¥»ç¶÷µéÀº throws¾øÀÌ µÇ´Âµ¥ ³ª´Â ¾øÀ¸¸é ¿À·ù¶ä ¤Ğ¤Ğ
 		memberDao = new MemberDao();
 		memberDao.insertMember(member);
 	}

@@ -1,21 +1,21 @@
 # 10/26
-1. Î©îÏù∏ÌéòÏù¥ÏßÄ 
+1. ∏ﬁ¿Œ∆‰¿Ã¡ˆ 
 (C)IndexController.doGet -> (V)index.jsp
-2. ÌöåÏõêÍ∞ÄÏûÖ Ìèº
+2. »∏ø¯∞°¿‘ ∆˚
 (C)AddMemberController.doGet -> (V)addMember.jsp
-3. ÌöåÏõêÍ∞ÄÏûÖ Ïï°ÏÖò
+3. »∏ø¯∞°¿‘ æ◊º«
 (C)AddMemberController.doPost -> (M)MemberDao.insertMember -> re:(V)login
 
 # 10/28
-1. Î°úÍ∑∏Ïù∏ Ìèº
+1. ∑Œ±◊¿Œ ∆˚
 (C)Login.doGet -> (V)login.jsp
-2. Î°úÍ∑∏Ïù∏ Ïï°ÏÖò
+2. ∑Œ±◊¿Œ æ◊º«
 (C)Login.doGet -> (M)MemberDao.login() -> success:(V)index / fail:(V)login
 
 # 11/1 AM
-1. sessionÏóê Î°úÍ∑∏Ïù∏ Ï†ïÎ≥¥ ÏàòÏ†ï
-2. Ï£ºÎ¨∏
-3. Ï£ºÎ¨∏ Î™©Î°ù(Ï°∞Ïù∏)
+1. sessionø° ∑Œ±◊¿Œ ¡§∫∏ ºˆ¡§
+2. ¡÷πÆ
+3. ¡÷πÆ ∏Ò∑œ(¡∂¿Œ)
 
 # 11/1 PM
-1. serviceÍ≥ÑÏ∏µ ÏÇ¨Ïö© : Ìä∏ÎûúÏû≠ÏÖòÏ≤òÎ¶¨ ÌöåÏõêÏÇ≠Ï†ú->Ï£ºÎ¨∏ÏÇ≠Ï†ú
+1. service∞Ë√˛ ªÁøÎ : ∆Æ∑£¿Ëº«√≥∏Æ »∏ø¯ªË¡¶->¡÷πÆªË¡¶
