@@ -10,32 +10,32 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Member;
 
 public class MemberDao {
-	// �α���
+	// 로그인 실패시 -> null
+	// 로그인 성공시 -> 성공한 Member객체
 	public Member loginMember(Member member) throws Exception {
-		System.out.println("MemberDao.loginMember(Member member");
+		System.out.println("MemberDao.loginMember(Member member)");
 		DBHelper dbHelper = new DBHelper();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String loginId = null;
-		String loginPw = null;
+		
+		String id = member.getId();
+		String pw = member.getPw();
 		
 		conn = dbHelper.getConnection();
-		String sql = "SELECT id,pw FROM member WHERE id=? and pw=?";
+		String sql = "SELECT id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
 		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, loginId);
-		stmt.setString(2, loginPw);
 		System.out.println(sql + "<-- loginMember sql");
 		rs = stmt.executeQuery();
 		if(rs.next()) {
-			
+			member.setId(rs.getString("id"));
+			member.setLevel(rs.getInt("level"));
 		}
-		
-		
-		return null;
+		dbHelper.close(rs, stmt, conn);
+		return member;
 	}
 	
-	// ȸ������
+	// 회원가입
 	public void insertMember(Member member) throws Exception {
 		System.out.println("MemberDao.insertMember(Member member)");
 		DBHelper dbHelper = new DBHelper();
@@ -49,7 +49,6 @@ public class MemberDao {
 		stmt.setString(1, member.getId());
 		stmt.setString(2, member.getPw());
 		stmt.setInt(3, 0);
-		
 		stmt.executeUpdate();
 		dbHelper.close(null, stmt, conn);
 	}

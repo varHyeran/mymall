@@ -12,16 +12,16 @@ import com.test.mymall.vo.Member;
 
 @WebServlet("/addMember")
 public class AddMemberController extends HttpServlet {
-	// 1. ¶ó¿ìÅÍ
-	// 2. ¸ğµ¨È£Ãâ
-	// 3. ºä ·»´õ¸µ
-	private MemberDao memberDao; // ÄÁÆ®·Ñ·¯°¡ ÇÊ¿äÇÑ dao´Â ¸ğµÎ À§¿¡ ÀÖ¾î¾ß ÇÑ´Ù(Áö±İÀº ±×³É ¾Ï±â¸¸)
-	// È¸¿ø°¡ÀÔ Æû
+	// 1. ë¼ìš°í„°
+	// 2. ëª¨ë¸í˜¸ì¶œ
+	// 3. ë·° ë Œë”ë§
+	private MemberDao memberDao; // ì»¨íŠ¸ë¡¤ëŸ¬ê°€ í•„ìš”í•œ daoëŠ” ëª¨ë‘ ìœ„ì— ìˆì–´ì•¼ í•œë‹¤(ì§€ê¸ˆì€ ê·¸ëƒ¥ ì•”ê¸°ë§Œ)
+	// íšŒì›ê°€ì… í¼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doGet()");
 		request.getRequestDispatcher("/WEB-INF/view/addMember.jsp").forward(request, response);
 	}
-	// È¸¿ø°¡ÀÔ ¾×¼Ç
+	// íšŒì›ê°€ì… ì•¡ì…˜
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doPost()");
 		String id = request.getParameter("id");
