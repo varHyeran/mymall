@@ -10,6 +10,11 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Member;
 
 public class MemberDao {
+	// 회원탈퇴
+	public void deleteMember(int no) {
+		
+	}
+	
 	// 로그인 실패시 -> null
 	// 로그인 성공시 -> 성공한 Member객체
 	public Member loginMember(Member member) throws Exception {

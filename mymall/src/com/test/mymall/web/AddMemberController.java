@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.mymall.dao.MemberDao;
+import com.test.mymall.service.MemberService;
 import com.test.mymall.vo.Member;
 
 @WebServlet("/addMember")
@@ -15,7 +16,7 @@ public class AddMemberController extends HttpServlet {
 	// 1. 라우터
 	// 2. 모델호출
 	// 3. 뷰 렌더링
-	private MemberDao memberDao; // 컨트롤러가 필요한 dao는 모두 위에 있어야 한다(지금은 그냥 암기만)
+	private MemberService memberService;
 	// 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doGet()");
@@ -33,9 +34,9 @@ public class AddMemberController extends HttpServlet {
 		member.setId(id);
 		member.setPw(pw);
 		
+		memberService = new MemberService();
 		try {
-			this.memberDao = new MemberDao();
-			memberDao.insertMember(member);
+			memberService.addMember(member);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

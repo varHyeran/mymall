@@ -17,6 +17,14 @@
 				<th>Price</th>
 				<th>Order</th>
 			</tr>
+				<c:forEach var="list" items="${itemList}">
+					<tr>
+						<td>${list.no}</td>
+						<td>${list.name}</td>	
+						<td>${list.price}</td>
+						<td><a href="${pageContext.request.contextPath}/order">주문</a></td>
+					</tr>
+				</c:forEach>
 		</table>
 	</form>
 </body>
