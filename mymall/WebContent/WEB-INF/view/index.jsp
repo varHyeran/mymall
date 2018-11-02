@@ -15,8 +15,16 @@
 	<c:if test="${loginMember != null}">
 		${loginMember.level}권한 로그인<br>
 		${loginMember.id}님 반갑습니다.
-		<a href="${pageContext.request.contextPath}/logout">로그아웃</a><br>
-		<a href="${pageContext.request.contextPath}/itemList">상품리스트</a>
+		<c:if test="${loginMember.level == 1}">
+			<a href="${pageContext.request.contextPath}/logout">로그아웃</a><br>
+			관리자페이지 입니다.
+		</c:if>
+		<c:if test="${loginMember.level != 1}">
+			<a href="${pageContext.request.contextPath}/logout">로그아웃</a><br>
+			<a href="${pageContext.request.contextPath}/itemList">상품리스트</a>
+			<a href="${pageContext.request.contextPath}/orderList">주문리스트</a>
+			<a href="${pageContext.request.contextPath}/deleteMember">회원탈퇴</a>
+		</c:if>
 	</c:if>
 </body>
 </html>

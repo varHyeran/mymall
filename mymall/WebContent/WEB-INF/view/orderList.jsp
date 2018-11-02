@@ -17,9 +17,16 @@
 				<th>itemNo</th>
 				<th>itemName</th>
 				<th>itemPrice</th>
-				
-				
 			</tr>
+			<c:forEach var="memberItemList" items="${memberItemList}">
+			<tr>
+				<td>${memberItemList.memberItemNo}</td>
+				<td>${memberItemList.orderDate}</td>
+				<td>${memberItemList.itemNo}</td>
+				<td>${memberItemList.itemName}</td>
+				<td>${memberItemList.itemPrice}</td>
+			</tr>
+			</c:forEach>
 		</table>
 	</form>
 </body>

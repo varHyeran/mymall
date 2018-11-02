@@ -13,12 +13,13 @@ import com.test.mymall.vo.Item;
 
 @WebServlet("/itemList")
 public class ItemListController extends HttpServlet {
+	// ìƒí’ˆë¦¬ìŠ¤íŠ¸
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ItemListController.doGet()");
 		ItemService itemService = new ItemService();
-		System.out.println(itemService + " <- ÄÁÆ®·Ñ·¯ ¼­ºñ½º itemList");
+		System.out.println(itemService + " <- ì»¨íŠ¸ë¡¤ëŸ¬ ì„œë¹„ìŠ¤ itemList");
 		ArrayList<Item> itemList = itemService.selectItemService();
-		System.out.println(itemList + " <- ¾î·¹ÀÌ¸®½ºÆ® itemList");
+		System.out.println(itemList + " <- ì–´ë ˆì´ë¦¬ìŠ¤íŠ¸ itemList");
 		request.setAttribute("itemList", itemList);
 		request.getRequestDispatcher("/WEB-INF/view/itemList.jsp").forward(request, response);
 	}

@@ -10,7 +10,7 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Item;
 
 public class ItemDao {
-	// »óÇ°¸®½ºÆ® ÀüÃ¼Á¶È¸
+	// ìƒí’ˆë¦¬ìŠ¤íŠ¸ ì „ì²´ì¡°íšŒ
 	public ArrayList<Item> selectItem(Connection conn) throws SQLException {
 		System.out.println("ItemDao.selectItem()");
 		PreparedStatement stmt = null;
@@ -20,7 +20,7 @@ public class ItemDao {
 		
 		String sql = "SELECT item.no, item.name, item.price FROM item";
 		stmt = conn.prepareStatement(sql);
-		System.out.println(sql + "<-------selectItem sql");
+		System.out.println(stmt + "<-------selectItem stmt");
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			item = new Item();

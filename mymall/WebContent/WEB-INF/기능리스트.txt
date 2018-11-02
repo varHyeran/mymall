@@ -1,21 +1,18 @@
-# 10/26
-1. ¸ÞÀÎÆäÀÌÁö 
+1. ë©”ì¸íŽ˜ì´ì§€
 (C)IndexController.doGet -> (V)index.jsp
-2. È¸¿ø°¡ÀÔ Æû
+2. íšŒì›ê°€ìž… í¼
 (C)AddMemberController.doGet -> (V)addMember.jsp
-3. È¸¿ø°¡ÀÔ ¾×¼Ç
-(C)AddMemberController.doPost -> (M)MemberDao.insertMember -> re:(V)login
+3. íšŒì›ê°€ìž… ì•¡ì…˜
+(C)AddMember.doPost -> (M)memberDao.insertMember
+4. ë¡œê·¸ì¸ í¼
+(C)LoginController.doGet -> (V)login.jsp
+5. ë¡œê·¸ì¸ ì•¡ì…˜
+(C)LoginContoller.doPost -> (M)MemberDao.login()
 
-# 10/28
-1. ·Î±×ÀÎ Æû
-(C)Login.doGet -> (V)login.jsp
-2. ·Î±×ÀÎ ¾×¼Ç
-(C)Login.doGet -> (M)MemberDao.login() -> success:(V)index / fail:(V)login
+11.01(ëª©) ì˜¤ì „
+1. ì„¸ì…˜ ë¡œê·¸ì¸ ì •ë³´ ìˆ˜ì •
+2. ì£¼ë¬¸
+3. ì£¼ë¬¸ ëª©ë¡(ì¡°ì¸)
 
-# 11/1 AM
-1. session¿¡ ·Î±×ÀÎ Á¤º¸ ¼öÁ¤
-2. ÁÖ¹®
-3. ÁÖ¹® ¸ñ·Ï(Á¶ÀÎ)
-
-# 11/1 PM
-1. service°èÃþ »ç¿ë : Æ®·£Àè¼ÇÃ³¸® È¸¿ø»èÁ¦->ÁÖ¹®»èÁ¦
+11.01(ëª©) ì˜¤í›„
+1. serviceê³„ì¸µ ì‚¬ìš© : íŠ¸ëžœìž­ì…˜ì²˜ë¦¬ íšŒì›ì‚­ì œ -> ì£¼ë¬¸ì‚­ì œ

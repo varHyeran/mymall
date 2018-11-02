@@ -16,14 +16,14 @@
 				<th>Price</th>
 				<th>Order</th>
 			</tr>
-				<c:forEach var="list" items="${itemList}">
-					<tr>
-						<td>${list.no}</td>
-						<td>${list.name}</td>	
-						<td>${list.price}</td>
-						<td><a href="${pageContext.request.contextPath}/OrderController?itemNo=${list.no}">주문</a></td>
-					</tr>
-				</c:forEach>
+			<c:forEach var="itemList" items="${itemList}">
+			<tr>
+				<td>${itemList.no}</td>
+				<td>${itemList.name}</td>	
+				<td>${itemList.price}</td>
+				<td><a href="${pageContext.request.contextPath}/OrderController?itemNo=${itemList.no}">주문</a></td>
+			</tr>
+			</c:forEach>
 		</table>
 	</form>
 </body>

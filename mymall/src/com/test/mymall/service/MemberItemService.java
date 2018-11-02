@@ -2,6 +2,7 @@ package com.test.mymall.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.dao.MemberItemDao;
@@ -15,7 +16,7 @@ public class MemberItemService {
 		Connection conn = null;
 		try {
 			conn = DBHelper.getConnection();
-			// ±â´É 1
+			// ê¸°ëŠ¥1
 			memberItemDao = new MemberItemDao();
 			memberItemDao.insertOrder(memberNo, itemNo, conn);
 		} catch (Exception e) {
@@ -25,19 +26,19 @@ public class MemberItemService {
 		}
 	}
 	
-	public ArrayList<MemberItem> orderListService(int memberNo){
+	public ArrayList<HashMap<String, Object>> orderListService(int memberNo){
 		System.out.println("MemberItemService.orderListService()");
 		Connection conn = null;
-		ArrayList<MemberItem> orderList = null;
+		ArrayList<HashMap<String, Object>> memberItemList = null;
 		try {
 			conn = DBHelper.getConnection();
-			// ±â´É 1
+			// ê¸°ëŠ¥1
 			memberItemDao = new MemberItemDao();
-			memberItemDao.getMemberItemList(memberNo, conn);
+			memberItemList = memberItemDao.getMemberItemList(memberNo, conn);
+			System.out.println(memberItemList + "<-- ì„œë¹„ìŠ¤ memberItemList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return null;
+		return memberItemList;
 	}
 }

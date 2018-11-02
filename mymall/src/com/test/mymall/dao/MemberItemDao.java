@@ -12,21 +12,30 @@ import com.test.mymall.vo.Item;
 import com.test.mymall.vo.MemberItem;
 
 public class MemberItemDao {
-	public void deleteMemberItem(Connection conn, int no) {
-		PreparedStatement stmt = conn.prepareStatement("");
+	// ì£¼ë¬¸ë¦¬ìŠ¤íŠ¸ ì‚­ì œ
+	public void deleteMemberItem(Connection conn, int memberNo) throws SQLException {
+		System.out.println("MemberDao.deleteItem()");
+		PreparedStatement stmt = null;
+		
+		String sql = "DELETE FROM member_item WHERE member_no=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		System.out.println(stmt + "<---- deleteMemberItem stmt");
+		stmt.executeUpdate();
+		DBHelper.close(null, stmt, null);
 	}
-	
+	// ì£¼ë¬¸
 	public void insertOrder(int memberNo, int itemNo, Connection conn) throws SQLException {
 		System.out.println("MemberItemDao.insertOrder()");
 		PreparedStatement stmt = null;
 		String sql = "INSERT INTO member_item(member_no, item_no, order_date) VALUES('" + memberNo + "', '" + itemNo + "', now())";
 		stmt = conn.prepareStatement(sql);
-		System.out.println(sql + "<-- insertOrder sql");
+		System.out.println(stmt + "<-- insertOrder stmt");
 		stmt.executeUpdate();
 		DBHelper.close(null, stmt, null);
 	}
 	
-	// Member INNER JOIN item
+	// Member INNER JOIN item	ì£¼ë¬¸ë¦¬ìŠ¤íŠ¸
 	public ArrayList<HashMap<String, Object>> getMemberItemList(int memberNo, Connection conn) throws SQLException{
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
@@ -34,11 +43,11 @@ public class MemberItemDao {
 		
 		String sql = "SELECT mi.no, mi.order_date, mi.item_no, i.name, i.price FROM member_item mi INNER JOIN item i ON mi.item_no = i.no WHERE mi.member_no = ?";
 		stmt = conn.prepareStatement(sql);
-		System.out.println(sql + "<--getMemberItemList sql");
 		stmt.setInt(1, memberNo);
+		System.out.println(stmt + "<--getMemberItemList stmt");
 		rs = stmt.executeQuery();
 		while(rs.next()) {
-			// MemberItemJoinItem -> HashMap (¿ø·¡´Â MemberItemJoinItem µ¥ÀÌÅÍ Å¸ÀÔÀ» ¸¸µé¾î¾ßµÇ´Âµ¥ ÀÏÈ¸¿ëÀÌ¶ó ±»ÀÌ ¸¸µéÇÊ¿ä°¡ ¾ø¾î¼­ HashMapÀ» »ç¿ëÇÏ°Ú´Ù)
+			// MemberItemJoinItem -> HashMap (ì›ë˜ëŠ” MemberItemJoinItem ë°ì´í„° íƒ€ì…ì„ ë§Œë“¤ì–´ì•¼ë˜ëŠ”ë° ì¼íšŒìš©ì´ë¼ êµ³ì´ ë§Œë“¤í•„ìš”ê°€ ì—†ì–´ì„œ HashMapì„ ì‚¬ìš©í•˜ê² ë‹¤)
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("memberItemNo", rs.getInt("no"));
 			map.put("orderDate", rs.getString("order_date"));
@@ -50,26 +59,4 @@ public class MemberItemDao {
 		}
 		return list;
 	}
-	
-	
-		/*
-	public ArrayList<HashMap<String, Object>> getMemberItemList(int memberNo) {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		String sql = "";
-		
-	 	SELECT mi.no, mi.order_date, mi.item_no, i.name, i.price 
-		FROM member_item mi INNER JOIN item i 
-		ON mi.item_NO = i.no 
-		WHERE mi.member_no = 1
-		 
-		while(rs.next()) {
-			// MemberItemJoinItem -> HashMap (¿ø·¡´Â MemberItemJoinItem µ¥ÀÌÅÍ Å¸ÀÔÀ» ¸¸µé¾î¾ßµÇ´Âµ¥ ÀÏÈ¸¿ëÀÌ¶ó ±»ÀÌ ¸¸µéÇÊ¿ä°¡ ¾ø¾î¼­ HashMapÀ» »ç¿ëÇÏ°Ú´Ù)
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("memberItemNo", rs.getInt("mi.no"));
-			map.put("itemPrice", rs.getInt("i.price"));
-			list.add(map);
-		}
-		return list;
-	}
-	*/
 }

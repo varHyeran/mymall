@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
+	// 로그아웃
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LogoutController.doGet()");
 		request.getSession().invalidate();

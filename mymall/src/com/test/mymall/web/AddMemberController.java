@@ -13,16 +13,16 @@ import com.test.mymall.vo.Member;
 
 @WebServlet("/addMember")
 public class AddMemberController extends HttpServlet {
-	// 1. ¶ó¿ìÅÍ
-	// 2. ¸ğµ¨È£Ãâ
-	// 3. ºä ·»´õ¸µ
+	// 1. ë¼ìš°í„°
+	// 2. ëª¨ë¸í˜¸ì¶œ
+	// 3. ë·° ë Œë”ë§
 	private MemberService memberService;
-	// È¸¿ø°¡ÀÔ Æû
+	// íšŒì›ê°€ì… í¼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doGet()");
 		request.getRequestDispatcher("/WEB-INF/view/addMember.jsp").forward(request, response);
 	}
-	// È¸¿ø°¡ÀÔ ¾×¼Ç
+	// íšŒì›ê°€ì… ì•¡ì…˜
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AddMemberController.doPost()");
 		String id = request.getParameter("id");

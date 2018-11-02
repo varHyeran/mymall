@@ -9,22 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.test.mymall.dao.MemberDao;
+import com.test.mymall.service.MemberService;
 import com.test.mymall.vo.Member;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private MemberDao memberDao;
-	// ·Î±×ÀÎ Æû
+	// ë¡œê·¸ì¸ í¼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("LoginController.doGet()");
 		if(request.getSession().getAttribute("loginMember") == null) {
 			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 		} else {
-			System.out.println("·Î±×ÀÎ ÁßÀÔ´Ï´Ù...");
+			System.out.println("ë¡œê·¸ì¸ ì¤‘ì…ë‹ˆë‹¤...");
 			response.sendRedirect(request.getContextPath() + "/index");
 		}
 	}
-	// ·Î±×ÀÎ ¾×¼Ç
+	// ë¡œê·¸ì¸ ì•¡ì…˜
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. id, password 
 		System.out.println("LoginController.doPost()");
@@ -32,29 +33,26 @@ public class LoginController extends HttpServlet {
 		String loginPw = request.getParameter("loginPw");
 		System.out.println(loginId + "<-- loginId");
 		System.out.println(loginPw + "<-- loginPw");
-	
-		memberDao = new MemberDao();
+		
 		Member member = new Member();
 		member.setId(loginId);
 		member.setPw(loginPw);
-
+		
+		MemberService memberservice = new MemberService();
 		Member sessionMember = new Member();
 		try {
-			sessionMember = memberDao.loginMember(member);
+			sessionMember = memberservice.memberLogin(member);
 			if(sessionMember.getId() != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginMember", sessionMember);
 				response.sendRedirect(request.getContextPath() + "/index");
-				System.out.println("·Î±×ÀÎ ¼º°ø");
+				System.out.println("ë¡œê·¸ì¸ ì„±ê³µ");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/login");
-				System.out.println("·Î±×ÀÎ ½ÇÆĞ");
+				System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
-
-		
 	}
-
 }

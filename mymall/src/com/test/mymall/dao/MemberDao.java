@@ -3,6 +3,7 @@ package com.test.mymall.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.jasper.tagplugins.jstl.core.If;
 
@@ -10,13 +11,21 @@ import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Member;
 
 public class MemberDao {
-	// È¸¿øÅ»Åğ
-	public void deleteMember(int no) {
+	// íšŒì›íƒˆí‡´
+	public void deleteMember(Connection conn, int memberNo) throws SQLException {
+		System.out.println("MemberDao.deleteMember()");
+		PreparedStatement stmt = null;
 		
+		String sql = "DELETE FROM member WHERE no=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		System.out.println(stmt + "<---- deleteMember stmt");
+		stmt.executeUpdate();
+		DBHelper.close(null, stmt, null);
 	}
 	
-	// ·Î±×ÀÎ ½ÇÆĞ½Ã -> null
-	// ·Î±×ÀÎ ¼º°ø½Ã -> ¼º°øÇÑ Member°´Ã¼
+	// ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œ -> null
+	// ë¡œê·¸ì¸ ì„±ê³µì‹œ -> ì„±ê³µí•œ Memberê°ì²´
 	public Member loginMember(Member member) throws Exception {
 		System.out.println("MemberDao.loginMember(Member member)");
 		DBHelper dbHelper = new DBHelper();
@@ -30,18 +39,20 @@ public class MemberDao {
 		conn = dbHelper.getConnection();
 		String sql = "SELECT no, id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
 		stmt = conn.prepareStatement(sql);
-		System.out.println(sql + "<-- loginMember sql");
+		System.out.println(stmt + "<-- loginMember stmt");
 		rs = stmt.executeQuery();
 		if(rs.next()) {
 			member.setNo(rs.getInt("no"));
 			member.setId(rs.getString("id"));
 			member.setLevel(rs.getInt("level"));
+		} else {
+			member.setId(null);
 		}
 		dbHelper.close(rs, stmt, conn);
 		return member;
 	}
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public void insertMember(Member member) throws Exception {
 		System.out.println("MemberDao.insertMember(Member member)");
 		DBHelper dbHelper = new DBHelper();
@@ -51,10 +62,10 @@ public class MemberDao {
 		conn = dbHelper.getConnection();
 		String sql = "INSERT INTO member(id, pw, level) VALUES(?, ?, ?)";
 		stmt = conn.prepareStatement(sql);
-		System.out.println(sql + "<-- insertMember sql");
 		stmt.setString(1, member.getId());
 		stmt.setString(2, member.getPw());
 		stmt.setInt(3, 0);
+		System.out.println(stmt + "<-- insertMember stmt");
 		stmt.executeUpdate();
 		dbHelper.close(null, stmt, conn);
 	}
