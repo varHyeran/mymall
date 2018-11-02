@@ -21,14 +21,47 @@ public class MemberDao {
 		stmt.setInt(1, memberNo);
 		System.out.println(stmt + "<---- deleteMember stmt");
 		stmt.executeUpdate();
-		DBHelper.close(null, stmt, null);
+		stmt.close();
+	}
+	
+	// 회원수정
+	public void modifyMember(Connection conn, Member member) throws SQLException {
+		System.out.println("MemberDao.modifyMember()");
+		PreparedStatement stmt = null;
+		
+		String sql = "UPDATE member SET pw=? WHERE id=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getPw());
+		stmt.setString(2, member.getId());
+		System.out.println(stmt + "<---- modifyMember stmt");
+		stmt.executeUpdate();
+		DBHelper.close(null, stmt, conn);
+	}
+	
+	// 회원정보 불러오기
+	public Member memberSelect(Connection conn, Member member) throws SQLException {
+		System.out.println("MemberDao.memberSelect()");
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT id, level FROM member WHERE id=?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getId());
+		System.out.println(stmt + "<----- memberSelect stmt");
+		rs = stmt.executeQuery();
+		Member selectMember = new Member();
+		if(rs.next()) {
+			selectMember.setId(rs.getString("id"));
+			selectMember.setLevel(rs.getInt(2));
+		}
+		DBHelper.close(rs, stmt, conn);
+		return selectMember;
 	}
 	
 	// 로그인 실패시 -> null
 	// 로그인 성공시 -> 성공한 Member객체
 	public Member loginMember(Member member) throws Exception {
 		System.out.println("MemberDao.loginMember(Member member)");
-		DBHelper dbHelper = new DBHelper();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -36,7 +69,6 @@ public class MemberDao {
 		String id = member.getId();
 		String pw = member.getPw();
 		
-		conn = dbHelper.getConnection();
 		String sql = "SELECT no, id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
 		stmt = conn.prepareStatement(sql);
 		System.out.println(stmt + "<-- loginMember stmt");
@@ -48,7 +80,7 @@ public class MemberDao {
 		} else {
 			member.setId(null);
 		}
-		dbHelper.close(rs, stmt, conn);
+		DBHelper.close(rs, stmt, conn);
 		return member;
 	}
 	

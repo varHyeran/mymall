@@ -22,7 +22,8 @@
 		<c:if test="${loginMember.level != 1}">
 			<a href="${pageContext.request.contextPath}/logout">로그아웃</a><br>
 			<a href="${pageContext.request.contextPath}/itemList">상품리스트</a>
-			<a href="${pageContext.request.contextPath}/orderList">주문리스트</a>
+			<a href="${pageContext.request.contextPath}/orderList">주문리스트</a><br>
+			<a href="${pageContext.request.contextPath}/modifyMember">정보수정</a>
 			<a href="${pageContext.request.contextPath}/deleteMember">회원탈퇴</a>
 		</c:if>
 	</c:if>

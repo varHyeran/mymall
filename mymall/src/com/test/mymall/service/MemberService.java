@@ -3,6 +3,8 @@ package com.test.mymall.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.dao.MemberDao;
 import com.test.mymall.dao.MemberItemDao;
@@ -11,6 +13,21 @@ import com.test.mymall.vo.Member;
 public class MemberService {
 	private MemberDao memberDao;
 	private MemberItemDao memberItemDao;
+	
+	/*
+	// RemoveMemberController에서 MemberService.remoceMember()를 호출
+	public void removeMember(int no) {
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = DBHelper.getSqlSession();
+			sqlSession.commit();
+		} catch(Exception e) {
+			sqlSession.rollback();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	*/
 	
 	// RemoveMemberController에서 MemberService.remoceMember()를 호출
 	public void removeMember(int memberNo) {
@@ -37,6 +54,24 @@ public class MemberService {
 		} finally {
 			DBHelper.close(null, null, conn);
 		}
+	}
+	
+	// 회원정보 불러오기
+	public Member selectMember(Member member) {
+		System.out.println("MemberService.selectMember()");
+		Connection conn = null;
+		memberDao = new MemberDao();
+		memberDao.memberSelect(conn, member);
+		return member;
+		
+	}
+	
+	// 회원수정처리
+	public void updateMember(Member member) throws SQLException {
+		System.out.println("MemberService.updateMember()");
+		Connection conn = null;
+		memberDao = new MemberDao();
+		memberDao.modifyMember(conn, member);
 	}
 	
 	// 로그인
