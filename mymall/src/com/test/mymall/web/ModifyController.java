@@ -20,12 +20,26 @@ public class ModifyController extends HttpServlet {
 		member = (Member)request.getSession().getAttribute("loginMember");
 		
 		MemberService memberService = new MemberService();
-		memberService.selectMember(member);
+		Member resultMember = new Member();
+		resultMember = memberService.selectMember(member);
+		request.getSession().setAttribute("member", resultMember);
 		request.getRequestDispatcher("/WEB-INF/view/modifyMember.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ModifyController.doPost()");
-
+		String id = request.getParameter("modifyId");
+		String pw = request.getParameter("modifyPw");
+		Member member = new Member();
+		member.setId(id);
+		member.setPw(pw);
+		
+		MemberService memberService = new MemberService();
+		try {
+			memberService.updateMember(member);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect(request.getContextPath() + "/index");
 	}
 }

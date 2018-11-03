@@ -12,15 +12,15 @@
 		<table border="1">
 			<tr>
 				<th>ID</th>
-				<td><input type="text" name="modifyId" readonly>${member.id}</td>
+				<td><input type="text" name="modifyId" value="${member.id}" readonly></td>
 			</tr>
 			<tr>
 				<th>PW</th>
-				<td><input type="password" name="modifyPw">${member.pw}</td>
+				<td><input type="password" name="modifyPw"></td>
 			</tr>
 			<tr>
 				<th>LEVEL</th>
-				<td><input type="text" name="modifyLevel" readonly>${member.level}</td>
+				<td><input type="text" name="modifyLevel" value="${member.level}" readonly></td>
 			</tr>
 		</table>
 			<input type="submit" value="수정">

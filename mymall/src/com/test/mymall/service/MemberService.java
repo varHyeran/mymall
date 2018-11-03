@@ -60,26 +60,38 @@ public class MemberService {
 	public Member selectMember(Member member) {
 		System.out.println("MemberService.selectMember()");
 		Connection conn = null;
-		memberDao = new MemberDao();
-		memberDao.memberSelect(conn, member);
-		return member;
-		
+		Member memberReturn = new Member();
+		try {
+			conn = DBHelper.getConnection();
+			memberDao = new MemberDao();
+			memberReturn = memberDao.memberSelect(conn, member);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return memberReturn;
 	}
 	
 	// 회원수정처리
 	public void updateMember(Member member) throws SQLException {
 		System.out.println("MemberService.updateMember()");
 		Connection conn = null;
-		memberDao = new MemberDao();
-		memberDao.modifyMember(conn, member);
+		try {
+			conn = DBHelper.getConnection();
+			MemberDao memberDao = new MemberDao();
+			memberDao.modifyMember(conn, member);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// 로그인
 	public Member memberLogin(Member member) throws Exception {
 		System.out.println("MemberService.memberLogin()");
+		Connection conn = null;
+		conn = DBHelper.getConnection();
 		memberDao = new MemberDao();
 		Member isLogin = new Member();
-		isLogin = memberDao.loginMember(member);
+		isLogin = memberDao.loginMember(member, conn);
 		return isLogin;
 	}
 

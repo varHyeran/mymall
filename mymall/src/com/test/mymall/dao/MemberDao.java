@@ -60,9 +60,8 @@ public class MemberDao {
 	
 	// 로그인 실패시 -> null
 	// 로그인 성공시 -> 성공한 Member객체
-	public Member loginMember(Member member) throws Exception {
+	public Member loginMember(Member member, Connection conn) throws Exception {
 		System.out.println("MemberDao.loginMember(Member member)");
-		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
