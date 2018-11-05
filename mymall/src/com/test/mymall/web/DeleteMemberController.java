@@ -17,8 +17,7 @@ public class DeleteMemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("DeleteMemberController.doGet()");
 		// 로그인 상태 No
-		Member deleteMember = new Member();
-		deleteMember = (Member)request.getSession().getAttribute("loginMember");
+		Member deleteMember = (Member)request.getSession().getAttribute("loginMember");
 		int memberNo = deleteMember.getNo();
 		
 		MemberService memberService = new MemberService();

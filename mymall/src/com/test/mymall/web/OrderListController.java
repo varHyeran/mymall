@@ -19,14 +19,23 @@ public class OrderListController extends HttpServlet {
 	// 주문리스트
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("OrderListController.doGet()");
-		Member loginMember = new Member();
-		loginMember = (Member)request.getSession().getAttribute("loginMember");
+		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
 		int memberNo = loginMember.getNo();
-		System.out.println(memberNo + "<----------주문리스트 memberNo");
 		MemberItemService memberItemService = new MemberItemService();
-		ArrayList<HashMap<String, Object>> memberItemList = memberItemService.orderListService(memberNo);
-
+		HashMap<String, Object> maplist = memberItemService.orderListService(memberNo, currentPage);
+		ArrayList<HashMap<String, Object>> memberItemList = (ArrayList<HashMap<String, Object>>) maplist.get("memberItemList");
+		
+		int lastPage = (int)maplist.get("lastPage");
+		
 		request.setAttribute("memberItemList", memberItemList);
+		request.setAttribute("lastPage", lastPage);
+		request.setAttribute("currentPage", currentPage);
 		request.getRequestDispatcher("/WEB-INF/view/orderList.jsp").forward(request, response);
 	}
 }

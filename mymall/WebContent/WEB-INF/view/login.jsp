@@ -21,6 +21,7 @@
 			</tr>
 		</table>
 	</form>
+	<a href = "${pageContext.request.contextPath}/addMember">회원가입</a> 
 	
 </body>
 </html>

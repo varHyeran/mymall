@@ -23,20 +23,18 @@ public class ItemDao {
 	}
 	*/
 	
-	public HashMap<String, Object> totalPage()	{
-		return null;
-	}
-	
 	// 상품리스트 전체조회
-	public ArrayList<Item> selectItem(Connection conn) throws SQLException {
+	public ArrayList<Item> selectItem(Connection conn, HashMap<String, Object> map) throws SQLException {
 		System.out.println("ItemDao.selectItem()");
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		ArrayList<Item> list = new ArrayList<Item>();
 		Item item = null;
 		
-		String sql = "SELECT item.no, item.name, item.price FROM item";
+		String sql = "SELECT item.no, item.name, item.price FROM item ORDER BY no LIMIT ?,?";
 		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, (int)map.get("startRow"));
+		stmt.setInt(2, (int)map.get("rowPerPage"));
 		System.out.println(stmt + "<-------selectItem stmt");
 		rs = stmt.executeQuery();
 		while(rs.next()) {
@@ -50,5 +48,23 @@ public class ItemDao {
 		System.out.println(list + " <- dao list");
 		DBHelper.close(rs, stmt, null);
 		return list;
+	}
+	
+	// 전체 행 구하기
+	public int totalCount(Connection conn) throws SQLException {
+		System.out.println("ItemDao.totalCount()");
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) FROM item";
+		stmt = conn.prepareStatement(sql);
+		System.out.println(stmt + "<----- totalCount stmt");
+		rs = stmt.executeQuery();
+		int count = 0;
+		if(rs.next()) {
+			count = rs.getInt(1);
+		}
+		DBHelper.close(rs, stmt, null);
+		return count;
 	}
 }

@@ -36,27 +36,48 @@ public class MemberItemDao {
 	}
 	
 	// Member INNER JOIN item	주문리스트
-	public ArrayList<HashMap<String, Object>> getMemberItemList(int memberNo, Connection conn) throws SQLException{
+	public ArrayList<HashMap<String, Object>> getMemberItemList(int memberNo, Connection conn, HashMap<String, Object> map) throws SQLException{
+		System.out.println("MemberItemDao.getMemberItemList() 호출");
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT mi.no, mi.order_date, mi.item_no, i.name, i.price FROM member_item mi INNER JOIN item i ON mi.item_no = i.no WHERE mi.member_no = ?";
+		String sql = "SELECT mi.no, mi.order_date, mi.item_no, i.name, i.price FROM member_item mi INNER JOIN item i ON mi.item_no = i.no WHERE mi.member_no = ? ORDER BY no LIMIT ?,?";
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, memberNo);
+		stmt.setInt(2, (int)map.get("startRow"));
+		stmt.setInt(3, (int)map.get("rowPerPage"));
 		System.out.println(stmt + "<--getMemberItemList stmt");
 		rs = stmt.executeQuery();
 		while(rs.next()) {
 			// MemberItemJoinItem -> HashMap (원래는 MemberItemJoinItem 데이터 타입을 만들어야되는데 일회용이라 굳이 만들필요가 없어서 HashMap을 사용하겠다)
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("memberItemNo", rs.getInt("no"));
-			map.put("orderDate", rs.getString("order_date"));
-			map.put("itemNo", rs.getInt("item_no"));
-			map.put("itemName", rs.getString("name"));
-			map.put("itemPrice", rs.getInt("price"));
+			HashMap<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("memberItemNo", rs.getInt("no"));
+			returnMap.put("orderDate", rs.getString("order_date"));
+			returnMap.put("itemNo", rs.getInt("item_no"));
+			returnMap.put("itemName", rs.getString("name"));
+			returnMap.put("itemPrice", rs.getInt("price"));
 			
-			list.add(map);
+			list.add(returnMap);
 		}
 		return list;
+	}
+	
+	// 전체 행 구하기
+	public int totalCount(Connection conn, int memberNo) throws SQLException {
+		System.out.println("MemberItemDao.totalCount()");
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) FROM member_item WHERE member_no = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		System.out.println(stmt + "<-------totalCount stmt");
+		rs = stmt.executeQuery();
+		int count = 0;
+		if(rs.next()) {
+			count = rs.getInt(1);
+		}
+		return count;
 	}
 }

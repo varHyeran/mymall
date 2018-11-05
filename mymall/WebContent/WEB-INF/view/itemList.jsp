@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Item List</h1>
-	<form>
+	<a href="${pageContext.request.contextPath}/index">메인으로</a>
 		<table border="1">
 			<tr>
 				<th>No</th>
@@ -25,6 +25,11 @@
 			</tr>
 			</c:forEach>
 		</table>
-	</form>
+		<c:if test="${paging.currentPage > 1}">
+			<a href="${pageContext.request.contextPath}/itemList?currentPage=${paging.currentPage-1}">이전</a>
+		</c:if>
+		<c:if test="${paging.currentPage < paging.lastPage}">
+			<a href="${pageContext.request.contextPath}/itemList?currentPage=${paging.currentPage+1}">다음</a>
+		</c:if>
 </body>
 </html>

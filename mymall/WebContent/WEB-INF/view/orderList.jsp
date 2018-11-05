@@ -9,7 +9,7 @@
 <body>
 	<h1>orderList</h1>
 	<!-- 주문하기 item pk, session member pk -->
-	<form>
+		<a href="${pageContext.request.contextPath}/index">메인으로</a>
 		<table border="1">
 			<tr>
 				<th>No</th>
@@ -28,6 +28,11 @@
 			</tr>
 			</c:forEach>
 		</table>
-	</form>
+		<c:if test="${currentPage > 1}">
+			<a href="${pageContext.request.contextPath}/orderList?currentPage=${currentPage-1}">이전</a>
+		</c:if>
+		<c:if test="${currentPage < lastPage}">
+			<a href="${pageContext.request.contextPath}/orderList?currentPage=${currentPage+1}">다음</a>
+		</c:if>
 </body>
 </html>

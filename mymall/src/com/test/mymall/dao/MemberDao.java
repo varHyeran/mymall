@@ -68,7 +68,7 @@ public class MemberDao {
 		String id = member.getId();
 		String pw = member.getPw();
 		
-		String sql = "SELECT no, id,level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
+		String sql = "SELECT no, id, level FROM member WHERE id='" + id + "' and pw='" + pw + "'";
 		stmt = conn.prepareStatement(sql);
 		System.out.println(stmt + "<-- loginMember stmt");
 		rs = stmt.executeQuery();
