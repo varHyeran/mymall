@@ -25,11 +25,11 @@
 			</tr>
 			</c:forEach>
 		</table>
-		<c:if test="${paging.currentPage > 1}">
-			<a href="${pageContext.request.contextPath}/itemList?currentPage=${paging.currentPage-1}">이전</a>
+		<c:if test="${currentPage > 1}">
+			<a href="${pageContext.request.contextPath}/itemList?currentPage=${currentPage-1}">이전</a>
 		</c:if>
-		<c:if test="${paging.currentPage < paging.lastPage}">
-			<a href="${pageContext.request.contextPath}/itemList?currentPage=${paging.currentPage+1}">다음</a>
+		<c:if test="${currentPage < lastPage}">
+			<a href="${pageContext.request.contextPath}/itemList?currentPage=${currentPage+1}">다음</a>
 		</c:if>
 </body>
 </html>

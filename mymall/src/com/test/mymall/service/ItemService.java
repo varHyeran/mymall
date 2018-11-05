@@ -14,7 +14,7 @@ import com.test.mymall.vo.Item;
 
 public class ItemService {
 	public ItemDao itemDao;
-
+	
 	// 아이템리스트 조회
 	public ArrayList<Item> selectItemService(HashMap<String, Object> map) {
 		System.out.println("ItemService.selectItemService()");
@@ -22,24 +22,37 @@ public class ItemService {
 		ArrayList<Item> itemList = null;
 		try {
 			conn = DBHelper.getConnection();
-			int rowPerPage = 5;
-			int startRow = ((int)map.get("currentPage")-1)*rowPerPage;
-			map.put("startRow", startRow);
-			map.put("rowPerPage", rowPerPage);
 			itemDao = new ItemDao();
 			itemList= itemDao.selectItem(conn, map);
-			
-			int count = itemDao.totalCount(conn);
-			int lastPage = count/rowPerPage;
-			if(count % rowPerPage != 0) {
-				lastPage++;
-			}
-			map.put("lastPage", lastPage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(null, null, conn);
 		}
 		return itemList;
+	}
+	
+	// 페이징
+	public HashMap<String, Object> itemPage(int currentPage){
+		System.out.println("ItemService.itemPage()");
+		Connection conn = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			conn = DBHelper.getConnection();
+			ItemDao itemDao = new ItemDao();
+			int rowPerPage = 5;
+			int startRow = (currentPage-1)*rowPerPage;
+			int count = itemDao.totalCount(conn);
+			int lastPage = count/rowPerPage;
+			if(count % rowPerPage !=0) {
+				lastPage++;
+			}
+			map.put("rowPerPage", rowPerPage);
+			map.put("startRow", startRow);
+			map.put("lastPage", lastPage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 }

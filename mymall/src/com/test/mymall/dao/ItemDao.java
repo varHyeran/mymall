@@ -64,7 +64,7 @@ public class ItemDao {
 		if(rs.next()) {
 			count = rs.getInt(1);
 		}
-		DBHelper.close(rs, stmt, null);
+		DBHelper.close(rs, stmt, conn);
 		return count;
 	}
 }

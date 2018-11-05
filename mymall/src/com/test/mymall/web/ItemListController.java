@@ -22,13 +22,14 @@ public class ItemListController extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("currentPage", currentPage);
-		
+
 		ItemService itemService = new ItemService();
+		HashMap<String, Object> map = itemService.itemPage(currentPage);
 		ArrayList<Item> itemList = itemService.selectItemService(map);
+		int lastPage = (int)map.get("lastPage");
 		request.setAttribute("itemList", itemList);
-		request.setAttribute("paging", map);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("lastPage", lastPage);
 		request.getRequestDispatcher("/WEB-INF/view/itemList.jsp").forward(request, response);
 	}
 }
