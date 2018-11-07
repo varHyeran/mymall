@@ -7,23 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.test.mymall.commons.DBHelper;
 import com.test.mymall.vo.Item;
 import com.test.mymall.vo.MemberItem;
 
 public class MemberItemDao {
 	// 주문리스트 삭제
-	public void deleteMemberItem(Connection conn, int memberNo) throws SQLException {
+	public void deleteMemberItem(SqlSession sqlSession, int memberNo) {
 		System.out.println("MemberDao.deleteItem()");
-		PreparedStatement stmt = null;
-		
-		String sql = "DELETE FROM member_item WHERE member_no=?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, memberNo);
-		System.out.println(stmt + "<---- deleteMemberItem stmt");
-		stmt.executeUpdate();
-		DBHelper.close(null, stmt, null);
+		sqlSession.delete("com.test.mymall.dao.MemberItemMapper.deleteMemberItem", memberNo);
 	}
+	
 	// 주문
 	public void insertOrder(int memberNo, int itemNo, Connection conn) throws SQLException {
 		System.out.println("MemberItemDao.insertOrder()");

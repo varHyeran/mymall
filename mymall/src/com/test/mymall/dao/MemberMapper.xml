@@ -8,15 +8,19 @@
             no as no
         FROM member
     </select>
-    <select id = "selectMemberOne" resultType="int">
-        SELECT
-            no as no
-        FROM member
-        WHERE no=#{no}
+    <select id="selectMember" parameterType="com.test.mymall.vo.Member" resultType="com.test.mymall.vo.Member">
+    	SELECT no, id, pw, level FROM member WHERE id = #{Member.id}
     </select>
     <insert id="insertMember" parameterType="com.test.mymall.vo.Member">
-        INSERT INTO member
-            (no, id)
-        VALUES #{no}, #{id}
+        INSERT INTO member (id, pw, level) VALUES (#{id}, #{pw}, 0)
     </insert>
+    <select id="login" parameterType="com.test.mymall.vo.Member" resultType="com.test.mymall.vo.Member">
+  		SELECT no,id,level FROM member WHERE id = #{id} AND pw = #{pw}
+  	</select>
+  	<update id="modifyMember" parameterType="com.test.mymall.vo.Member">
+    	UPDATE member SET pw = #{pw} WHERE id = #{id}
+  	</update>
+  	<delete id="deleteMember" parameterType="int">
+  		DELETE FROM member WHERE no = #{memberNo}
+  	</delete>
 </mapper>
