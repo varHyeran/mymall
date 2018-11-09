@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mymall.dao.MemberMapper"> <!-- like package -->
-    <select id = "selectMemberList" resultType="com.test.mymall.vo.Member">
-        SELECT
-            no as no
-        FROM member
-    </select>
     <select id="selectMember" parameterType="com.test.mymall.vo.Member" resultType="com.test.mymall.vo.Member">
     	SELECT no, id, pw, level FROM member WHERE id = #{Member.id}
     </select>
